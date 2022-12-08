@@ -2,7 +2,8 @@
   
 
 <div >
-    <form @submit="login()"><!-- quando tiver um evento submit vai chamar a  função  login-->
+    <!-- retirei o premvent e acontece a mesma coisa;-->
+    <form @submit.prevent="login()"><!-- quando tiver um evento submit vai chamar a  função  login-->
             <h1>Login</h1>
             <div>
               <input type="text" placeholder="digite o email" v-model="email"> <!-- faz a atualização em duas direções 
@@ -26,44 +27,39 @@
 import {http} from '../services/config'
 
 
+
 export default {
 
     data () {
         return {
-            email:'eve.holt@reqres.in',
-            password:'cityslicka'
+            email:"eve.holt@reqres.in",
+            password:"cityslicka"
         }
     },
    methods:{
 
-    login(){
-        
-        const axios = require('axios');
-
-        axios.get('https://reqres.in/api/login',{
-            email: this.email,
-            password: this.password
-
-        }).then((response) =>{
-            console.log(response.data)
-            alert(response)
-        }).catch((error) => {
-
-        })
+    login (){
+       // retirei o body 
         http.post('https://reqres.in/api/login', {
-            body:{
+           
                 email: this.email,
                 password: this.password
-            }
+            
            
         }).then((response) => {
             console.log(response.data)
+            
         }).catch((error) => {
             console.log(error)
         })
 
     }
-   }
+
+    
+   },
+
+
+   
 }
 </script>
 
